@@ -1,6 +1,11 @@
 import Image from "next/image"
+import useStore from "../hooks/useStore"
+import Category from "./Category"
 
 const Sidebar = () => {
+
+  const {categories} = useStore()
+
   return (
     <>
         <Image 
@@ -9,7 +14,14 @@ const Sidebar = () => {
             src="/assets/img/logo.svg"  
             alt="image logo"/>
 
-    
+        <nav className="mt-10">
+          {categories.map(category =>{
+            <Category 
+              key={category.id}
+              category={category}
+            />
+          })}
+        </nav>
     </>
   )
 }
