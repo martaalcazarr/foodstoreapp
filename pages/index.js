@@ -10,14 +10,14 @@ export default function Home() {
   )
 }
 
-export const getServerSideProps = async () => {
-  const prisma = new PrismaClient()
+// export const getServerSideProps = async () => {
+//   const prisma = new PrismaClient()
 
-  const categories = await prisma.category.findMany()
+//   const categories = await prisma.category.findMany()
 
-  return {
-    props: {
-      categories,
-    },
-  }
-}
+//   return {
+//     props: {
+//       categories,
+//     },
+//   }
+// }
