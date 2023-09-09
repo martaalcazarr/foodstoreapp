@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <Layout page={`${actualCategory && actualCategory.name} menu`}>
-      <h1 className='text-4xl font-black'>{actualCategory.name}</h1>
+      <h1 className='text-4xl font-black'>{actualCategory && actualCategory.name}</h1>
       <p className='text-2xl my-10'>
         Choose your favorites to create your order
       </p>
