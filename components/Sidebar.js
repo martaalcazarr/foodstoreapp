@@ -15,12 +15,12 @@ const Sidebar = () => {
             alt="image logo"/>
 
         <nav className="mt-10">
-          {categories.map(category =>{
+          {categories.map(category =>(
             <Category 
               key={category.id}
               category={category}
             />
-          })}
+        ))}
         </nav>
     </>
   )
