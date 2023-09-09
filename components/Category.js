@@ -7,7 +7,9 @@ const Category = ({category}) => {
 
     const {name, icon, id} = category
   return (
-    <div className="flex items-center gap-4 w-full border p-5 hover:bg-amber-400">
+    <div className={`${
+        actualCategory && actualCategory.id === id ? "bg-amber-400" : ""
+      } flex items-center gap-4 w-full border p-5 hover:bg-amber-400`}>
         <Image 
             width={70}
             height={70}
