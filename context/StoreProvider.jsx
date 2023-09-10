@@ -6,6 +6,9 @@ const StoreContext = createContext()
 const StoreProvider = ({children}) => {
     const [categories, setCategories] = useState([])
     const [actualCategory, setActualCategory] = useState({})
+    const [product, setProduct] = useState({})
+    const [modal, setModal] = useState(false)
+    const [order, setOrder] = useState([])
 
     const getCategories = async () => {
         const {data} = await axios('/api/categories')
@@ -25,12 +28,37 @@ const StoreProvider = ({children}) => {
         setActualCategory(category[0])
     }
 
+    const handleSetProduct = product => {
+        setProduct(product)
+    }
+
+    const handleChangeModal = () => {
+        setModal(!modal)
+    }
+
+    const handleAddToOrder = ({categoryId, image, ...product}) => {
+        if(order.some(productState => productState.id === product.id)){
+            
+            const updatedOrder = order.map(productState => productState.id === product.id ? product : productState )
+
+            setOrder(updatedOrder)
+        }else{
+            setOrder([...order, product])
+        }
+        
+    }
+
     return(
         <StoreContext.Provider
             value={{
                 categories,
                 actualCategory,
-                handleClickCategory
+                handleClickCategory,
+                product,
+                handleSetProduct,
+                modal,
+                handleChangeModal,
+                handleAddToOrder
             }}
         >
             {children}
