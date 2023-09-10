@@ -37,7 +37,15 @@ const StoreProvider = ({children}) => {
     }
 
     const handleAddToOrder = ({categoryId, image, ...product}) => {
-        setOrder([...order, product])
+        if(order.some(productState => productState.id === product.id)){
+            
+            const updatedOrder = order.map(productState => productState.id === product.id ? product : productState )
+
+            setOrder(updatedOrder)
+        }else{
+            setOrder([...order, product])
+        }
+        
     }
 
     return(
