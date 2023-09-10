@@ -5,7 +5,7 @@ import { formatMoney } from "../helpers"
 
 const ModalProduct = () => {
 
-    const {product, handleChangeModal} = useStore()
+    const {product, handleChangeModal, handleAddToOrder} = useStore()
     const [quantity, setQuantity] = useState(1)
 
 
@@ -66,6 +66,14 @@ const ModalProduct = () => {
 
                 </button>
             </div>
+
+            <button
+                type="button"
+                className="bg-indigo-600 hover:bg-indigo-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded"
+                onClick={() => handleAddToOrder({...product, quantity})}
+            >
+                Add to your order
+            </button>
         </div>
     </div>
     
