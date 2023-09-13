@@ -45,7 +45,7 @@ const StoreProvider = ({children}) => {
         }else{
             setOrder([...order, product])
         }
-        
+        setModal(false)
     }
 
     return(
@@ -58,7 +58,8 @@ const StoreProvider = ({children}) => {
                 handleSetProduct,
                 modal,
                 handleChangeModal,
-                handleAddToOrder
+                handleAddToOrder,
+                order
             }}
         >
             {children}
