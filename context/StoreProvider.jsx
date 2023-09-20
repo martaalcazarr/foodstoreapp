@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import axios from "axios";
+import { toast} from "react-toastify";
 
 const StoreContext = createContext()
 
@@ -9,6 +10,7 @@ const StoreProvider = ({children}) => {
     const [product, setProduct] = useState({})
     const [modal, setModal] = useState(false)
     const [order, setOrder] = useState([])
+    const [step, setStep] = useState(1)
 
     const getCategories = async () => {
         const {data} = await axios('/api/categories')
@@ -36,14 +38,16 @@ const StoreProvider = ({children}) => {
         setModal(!modal)
     }
 
-    const handleAddToOrder = ({categoryId, image, ...product}) => {
+    const handleAddToOrder = ({categoryId, ...product}) => {
         if(order.some(productState => productState.id === product.id)){
             
             const updatedOrder = order.map(productState => productState.id === product.id ? product : productState )
 
             setOrder(updatedOrder)
+            toast.success('Saved')
         }else{
             setOrder([...order, product])
+            toast.success('Added to your order')
         }
         setModal(false)
     }
