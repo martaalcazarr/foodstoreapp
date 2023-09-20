@@ -52,10 +52,6 @@ const StoreProvider = ({children}) => {
         setModal(false)
     }
 
-    const handleChangeStep = step => {
-        setStep(step)
-    }
-
     return(
         <StoreContext.Provider
             value={{
@@ -67,9 +63,7 @@ const StoreProvider = ({children}) => {
                 modal,
                 handleChangeModal,
                 handleAddToOrder,
-                order,
-                step,
-                handleChangeStep
+                order
             }}
         >
             {children}
