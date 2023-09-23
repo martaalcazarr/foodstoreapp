@@ -1,6 +1,7 @@
 import { useState, useEffect, createContext } from "react";
 import axios from "axios";
 import { toast} from "react-toastify";
+import { useRouter } from "next/router";
 
 const StoreContext = createContext()
 
@@ -10,7 +11,10 @@ const StoreProvider = ({children}) => {
     const [product, setProduct] = useState({})
     const [modal, setModal] = useState(false)
     const [order, setOrder] = useState([])
-    const [step, setStep] = useState(1)
+    const [name, setName] = useState('')
+    const [total, setTotal] = useState(0)
+
+    const router = useRouter()
 
     const getCategories = async () => {
         const {data} = await axios('/api/categories')
@@ -25,9 +29,15 @@ const StoreProvider = ({children}) => {
         setActualCategory(categories[0])
     }, [categories])
 
+    useEffect(() => {
+        const newTotal = order.reduce((total, product) => (product.price * product.quantity) + total, 0)
+        setTotal(newTotal)
+    }, [order])
+
     const handleClickCategory = id => {
         const category = categories.filter(cat => cat.id === id)
         setActualCategory(category[0])
+        router.push('/')
     }
 
     const handleSetProduct = product => {
@@ -59,6 +69,16 @@ const StoreProvider = ({children}) => {
         setModal(!modal)
     }
 
+    const handleDeleteProduct = id => {
+        const updatedOrder = order.filter(product => product.id !== id)
+        setOrder(updatedOrder)
+    }
+
+    const putOrder = async (e) => {
+        e.preventDefault()
+        console.log('send order')
+    }
+
     return(
         <StoreContext.Provider
             value={{
@@ -71,7 +91,12 @@ const StoreProvider = ({children}) => {
                 handleChangeModal,
                 handleAddToOrder,
                 order,
-                handleEditQuantity
+                handleEditQuantity,
+                handleDeleteProduct,
+                name,
+                setName,
+                putOrder,
+                total
             }}
         >
             {children}
