@@ -1,7 +1,10 @@
 import Image from "next/image";
 import { formatMoney } from "../helpers";
+import useStore from "../hooks/useStore";
 
 const ProductOverview = ({ product }) => {
+  const {handleEditQuantity} = useStore()
+
   return (
     <div className="shadow p-5 mb-3 flex gap-10 items-center">
       <div className="md:w-1/6">
@@ -32,6 +35,7 @@ const ProductOverview = ({ product }) => {
         <button
           type="button"
           className="gap-2 bg-sky-700 flex px-5 py-2 text-white rounded-md font-bold uppercase shadow-md w-full lg:w-auto"
+          onClick={() => handleEditQuantity(product.id)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
