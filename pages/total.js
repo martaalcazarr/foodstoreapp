@@ -1,10 +1,11 @@
 import Layout from "../layout/Layout"
 import { useEffect, useCallback } from "react"
 import useStore from "../hooks/useStore"
+import { formatMoney } from "../helpers"
 
 export default function Total(){
 
-    const {order, name, setName} = useStore()
+    const {order, name, setName, putOrder, total} = useStore()
 
     const checkOrder = useCallback(() => {
         return order.length === 0 || name === '' || name.length < 2
@@ -14,10 +15,7 @@ export default function Total(){
         checkOrder()
     }, [order, checkOrder])
 
-    const putOrder = (e) => {
-        e.preventDefault()
-        console.log('send order')
-    }
+
 
     return(
         <Layout page='Total and confirm order'>
@@ -46,7 +44,7 @@ export default function Total(){
         <div className="mt-10">
             <p className="text-2xl">Total {''}
             <span className="font-bold">
-                300
+                {formatMoney(total)}
             </span>
             </p>
 

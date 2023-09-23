@@ -12,6 +12,7 @@ const StoreProvider = ({children}) => {
     const [modal, setModal] = useState(false)
     const [order, setOrder] = useState([])
     const [name, setName] = useState('')
+    const [total, setTotal] = useState(0)
 
     const router = useRouter()
 
@@ -27,6 +28,11 @@ const StoreProvider = ({children}) => {
     useEffect(() =>{
         setActualCategory(categories[0])
     }, [categories])
+
+    useEffect(() => {
+        const newTotal = order.reduce((total, product) => (product.price * product.quantity) + total, 0)
+        setTotal(newTotal)
+    }, [order])
 
     const handleClickCategory = id => {
         const category = categories.filter(cat => cat.id === id)
@@ -68,6 +74,11 @@ const StoreProvider = ({children}) => {
         setOrder(updatedOrder)
     }
 
+    const putOrder = async (e) => {
+        e.preventDefault()
+        console.log('send order')
+    }
+
     return(
         <StoreContext.Provider
             value={{
@@ -83,7 +94,9 @@ const StoreProvider = ({children}) => {
                 handleEditQuantity,
                 handleDeleteProduct,
                 name,
-                setName
+                setName,
+                putOrder,
+                total
             }}
         >
             {children}
