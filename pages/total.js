@@ -1,12 +1,32 @@
 import Layout from "../layout/Layout"
+import { useEffect, useCallback } from "react"
+import useStore from "../hooks/useStore"
 
 export default function Total(){
+
+    const {order} = useStore()
+
+    const checkOrder = useCallback(() => {
+        return order.length === 0
+    }, [order])
+
+    useEffect(() => {
+        checkOrder()
+    }, [order, checkOrder])
+
+    const putOrder = (e) => {
+        e.preventDefault()
+        console.log('send order')
+    }
+
     return(
         <Layout page='Total and confirm order'>
         <h1 className="text-4xl font-black">Total</h1>
         <p className="text-2xl my-10">Confirm your order</p>
 
-        <form>
+        <form
+            onSubmit={putOrder}
+        >
         <div>
             <label
                 htmlFor="name"
@@ -32,8 +52,10 @@ export default function Total(){
 
         <div className="mt-5">
             <input 
-                className="text-center w-full lg:w-auto px-5 py-2 rounded uppercase font-bold text-white bg-indigo-600"
+                type="submit"
+                className={`${checkOrder() ? 'bg-indigo-100' : 'bg-indigo-600 hover:bg-indigo-800'} text-center w-full lg:w-auto px-5 py-2 rounded uppercase font-bold text-white`}
                 value="Confirm order"
+                disabled={checkOrder()}
             />
         </div>
     </form>
