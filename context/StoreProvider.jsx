@@ -76,7 +76,17 @@ const StoreProvider = ({children}) => {
 
     const putOrder = async (e) => {
         e.preventDefault()
-        console.log('send order')
+
+        try {
+            const {data} = await axios.post('/api/orders', {order, name, total, date: Date.now().toString()})
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+        console.log(order)
+        console.log(name)
+        console.log(total)
+        console.log('send')
     }
 
     return(
