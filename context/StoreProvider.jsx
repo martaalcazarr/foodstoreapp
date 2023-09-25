@@ -78,15 +78,21 @@ const StoreProvider = ({children}) => {
         e.preventDefault()
 
         try {
-            const {data} = await axios.post('/api/orders', {order, name, total, date: Date.now().toString()})
-            console.log(data)
+            await axios.post('/api/orders', {order, name, total, date: Date.now().toString()})
+
+            setActualCategory(categories[0])
+            setOrder([])
+            setName('')
+            setTotal(0)
+
+            toast.success('We have received your order')
+
+            setTimeout(() => {
+                router.push('/')
+            }, 3000)
         } catch (error) {
             console.log(error)
         }
-        console.log(order)
-        console.log(name)
-        console.log(total)
-        console.log('send')
     }
 
     return(
