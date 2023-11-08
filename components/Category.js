@@ -1,6 +1,8 @@
 import Image from "next/image"
 import useStore from "../hooks/useStore"
 
+//just to try key
+
 const Category = ({category}) => {
 
     const {actualCategory, handleClickCategory} = useStore()
